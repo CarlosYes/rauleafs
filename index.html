@@ -1,0 +1,300 @@
+ <!DOCTYPE html>
+<html lang=pt-PT>
+<head>
+<title>Radio Amigos Unidos</title>
+<meta name="description" content="RAU" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv=X-UA-Compatible content="IE=Edge"/>
+<meta property="og:title" content="RAU Player" />
+<meta property="og:description" content="RAU" />
+<link rel="icon" type="image/png" href="https://i.imgur.com/nNh98kV.png" sizes="48x48" />
+<link rel="icon" type="image/png" href="https://i.imgur.com/nNh98kV.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="https://i.imgur.com/nNh98kV.png" sizes="144x144" />
+<link rel="icon" type="image/png" href="https://i.imgur.com/nNh98kV.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://i.imgur.com/nNh98kV.png" sizes="180x180"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: #2b1810;
+        }
+
+        .js-ag-autumn-block {
+            height: 100%;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Imagem de Fundo Completa */
+        .js-ag-leaves-block {
+            height: 100%;
+            width: 100%;
+            background: url('https://xatimg.com/image/eh9ZjYLhQ43d.jpg') no-repeat center center;
+            background-size: cover;
+            position: relative;
+        }
+
+        /* Camada de Partículas tsParticles */
+        #tsparticles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Estilos dos Ramos / Pernadas */
+        .js-ag-branch {
+            position: absolute;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .js-ag-branch img {
+            display: block;
+            max-width: 100%;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .js-ag-anim .js-ag-branch img {
+            opacity: 1;
+        }
+
+        /* Ramos da Esquerda (Subidos 20px) */
+        .js-ag-branch-3 {
+            width: 19em;
+            left: -1em;
+            top: -20px;
+        }
+        .js-ag-branch-3 img {
+            transform-origin: 0 50%;
+            animation: an-branch-1 5s ease-in-out infinite alternate;
+        }
+
+        .js-ag-branch-4 {
+            left: -1em;
+            top: calc(24em - 20px);
+            width: 7em;
+        }
+        .js-ag-branch-4 img {
+            transform-origin: 0 50%;
+            animation: an-branch-2 5s ease-in-out 3s infinite alternate;
+        }
+
+        /* Ramos da Direita */
+        .js-ag-branch-5 {
+            width: 34em;
+            top: 0;
+            right: -1em;
+        }
+        .js-ag-branch-5 img {
+            transform-origin: 100% 50%;
+            animation: an-branch-1 5s ease-in-out 3s infinite alternate;
+        }
+
+        .js-ag-branch-6 {
+            top: 0;
+            right: -1em;
+            width: 25.7em;
+        }
+        .js-ag-branch-6 img {
+            transform-origin: 100% 50%;
+            animation: an-branch-2 5s ease-in-out 0s infinite alternate;
+        }
+
+        .custom-item-right {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .custom-item-right img {
+            max-width: 280px;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.4));
+        }
+
+        /* Elemento do Pássaro (Canto Esquerdo) */
+        .custom-item-left {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .custom-item-left img {
+            max-width: 200px;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.4));
+        }
+
+        @keyframes an-branch-1 {
+            0% { transform: none; }
+            100% { transform: skewY(5deg) rotate(3deg); }
+        }
+
+        @keyframes an-branch-2 {
+            0% { transform: none; }
+            100% { transform: skewX(5deg) rotate(-3deg); }
+        }
+
+        @media (max-width: 768px) {
+            .custom-item-right {
+                right: 15px;
+                bottom: 20px;
+            }
+            .custom-item-right img {
+                max-width: 180px;
+            }
+            .custom-item-left {
+                left: 15px;
+                bottom: 20px;
+            }
+            .custom-item-left img {
+                max-width: 130px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="js-ag-autumn-block">
+        <div class="js-ag-leaves-block">
+
+            <div class="js-ag-branch js-ag-branch-3">
+                <img src="https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/greensock-leaves/images/branch-left.png" alt="Ramo 3">
+            </div>
+            <div class="js-ag-branch js-ag-branch-4">
+                <img src="https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/greensock-leaves/images/branch-left-2.png" alt="Ramo 4">
+            </div>
+            <div class="js-ag-branch js-ag-branch-5">
+                <img src="https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/greensock-leaves/images/branch-right-2.png" alt="Ramo 5">
+            </div>
+            <div class="js-ag-branch js-ag-branch-6">
+                <img src="https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/greensock-leaves/images/branch-right.png" alt="Ramo 6">
+            </div>
+
+            <div class="custom-item-left">
+                <img src="https://xatimg.com/image/mzEyQtqFoRl4.png" alt="Pássaro">
+            </div>
+
+            <div class="custom-item-right">
+                <img src="https://xatimg.com/image/Mpp11jhfeeiR.png" alt="Esquilo">
+            </div>
+
+            <div id="tsparticles"></div>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+
+    <script>
+        (function ($) {
+            $(function () {
+                setTimeout((function () {
+                    $('.js-ag-autumn-block').addClass('js-ag-anim');
+                    
+                    var agBranch = gsap.timeline({delay: 0.5});
+                    agBranch.from($('.js-ag-branch-3'), {x: '-100%', alpha: 0, duration: 1.5});
+                    agBranch.from($('.js-ag-branch-4'), {x: '-100%', alpha: 0, duration: 1.5}, 0.5);
+                    agBranch.from($('.js-ag-branch-5'), {x: '100%', alpha: 0, duration: 1.5}, 0);
+                    agBranch.from($('.js-ag-branch-6'), {x: '100%', alpha: 0, duration: 1.5}, 0.5);
+                    
+                    gsap.from('.custom-item-right', {
+                        y: 50,
+                        alpha: 0,
+                        duration: 1.2,
+                        delay: 1,
+                        ease: 'power2.out'
+                    });
+
+                    gsap.from('.custom-item-left', {
+                        y: 50,
+                        alpha: 0,
+                        duration: 1.2,
+                        delay: 1.2,
+                        ease: 'power2.out'
+                    });
+                }), 300);
+            });
+        })(jQuery);
+
+        tsParticles.load({
+            id: "tsparticles",
+            options: {
+                particles: {
+                    color: {
+                        value: ["#8B9216", "#A79F0F", "#EDA421", "#E98604", "#DF3908", "#C91E0A"]
+                    },
+                    move: {
+                        direction: "bottom",
+                        enable: true,
+                        outModes: { default: "out" },
+                        size: true,
+                        speed: { min: 0.03, max: 0.15 } /* Velocidade drasticamente reduzida */
+                    },
+                    number: {
+                        value: 50,
+                        density: { enable: true, area: 800 }
+                    },
+                    opacity: { value: 0.95 },
+                    rotate: {
+                        value: { min: 0, max: 360 },
+                        direction: "random",
+                        move: true,
+                        animation: { enable: true, speed: 12 }
+                    },
+                    tilt: {
+                        direction: "random",
+                        enable: true,
+                        move: true,
+                        value: { min: 0, max: 360 },
+                        animation: { enable: true, speed: 10, sync: false }
+                    },
+                    shape: {
+                        type: "image",
+                        options: {
+                            image: [
+                                { src: "https://www.pngall.com/wp-content/uploads/2016/07/Canada-Leaf-PNG-Image.png", width: 240, height: 240 },
+                                { src: "https://www.pngkey.com/png/full/92-92803_fall-png-autumn-leaf-transparent-background.png", width: 240, height: 240 }
+                            ]
+                        }
+                    },
+                    size: { value: { min: 12, max: 24 } },
+                    roll: {
+                        darken: { enable: true, value: 30 },
+                        enlighten: { enable: true, value: 30 },
+                        enable: true,
+                        speed: { min: 4, max: 8 }
+                    },
+                    wobble: {
+                        distance: 30,
+                        enable: true,
+                        move: true,
+                        speed: { min: -5, max: 5 }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
