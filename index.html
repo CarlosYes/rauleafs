@@ -12,8 +12,11 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
+        /* Garante nitidez máxima e evita qualquer efeito de desfoque no xat.com */
         html, body {
             width: 100%;
             height: 100%;
@@ -21,6 +24,7 @@
             background-color: #2b1810;
             position: fixed;
             inset: 0;
+            image-rendering: -webkit-optimize-contrast;
         }
 
         .js-ag-autumn-block {
@@ -39,19 +43,10 @@
             position: absolute;
             inset: 0;
             overflow: hidden !important;
+            transform: translateZ(0); /* Força aceleração por hardware para evitar desfoque */
         }
 
-        /* Camada de Partículas tsParticles / Canvas */
-        #tsparticles {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        /* Camada CSS Fallback de Folhas para o xat.com */
+        /* Sistema de Folhas a Cair em CSS Puro (100% Fluido em todos os navegadores e no xat.com) */
         .css-falling-leaves {
             position: absolute;
             inset: 0;
@@ -64,27 +59,25 @@
 
         .css-leaf {
             position: absolute;
-            top: -50px;
-            width: 24px;
-            height: 24px;
+            top: -10%;
             background-size: contain;
             background-repeat: no-repeat;
-            opacity: 0.9;
-            will-change: transform;
+            opacity: 0.95;
+            will-change: transform, top;
             animation: cssFall linear infinite;
         }
 
         @keyframes cssFall {
             0% {
                 top: -10%;
-                transform: translateX(0) rotate(0deg) rotateY(0deg);
+                transform: translateX(0px) rotate(0deg) rotateY(0deg);
             }
             50% {
-                transform: translateX(30px) rotate(180deg) rotateY(180deg);
+                transform: translateX(35px) rotate(180deg) rotateY(180deg);
             }
             100% {
                 top: 105%;
-                transform: translateX(-20px) rotate(360deg) rotateY(360deg);
+                transform: translateX(-25px) rotate(360deg) rotateY(360deg);
             }
         }
 
@@ -93,7 +86,7 @@
             position: absolute;
             pointer-events: none;
             z-index: 5;
-            will-change: transform;
+            transform: translateZ(0);
         }
 
         .js-ag-branch img {
@@ -153,7 +146,7 @@
             animation: an-branch-2 5s ease-in-out 0s infinite alternate;
         }
 
-        /* Esquilo (Canto Direito Adaptável) */
+        /* Esquilo (Canto Direito Adaptável e Nítido) */
         .custom-item-right {
             position: absolute;
             bottom: 30px;
@@ -163,6 +156,8 @@
             width: 22vw;
             max-width: 250px;
             min-width: 120px;
+            transform: translateZ(0);
+            animation: fadeInItem 1s ease-out forwards;
         }
 
         .custom-item-right img {
@@ -170,10 +165,10 @@
             height: auto;
             display: block;
             object-fit: contain;
-            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.4));
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
         }
 
-        /* Pássaro (Canto Esquerdo Adaptável) */
+        /* Pássaro (Canto Esquerdo Adaptável e Nítido) */
         .custom-item-left {
             position: absolute;
             bottom: 30px;
@@ -183,6 +178,9 @@
             width: 18vw;
             max-width: 180px;
             min-width: 90px;
+            transform: translateZ(0);
+            animation: fadeInItem 1s ease-out 0.2s forwards;
+            opacity: 0;
         }
 
         .custom-item-left img {
@@ -190,7 +188,18 @@
             height: auto;
             display: block;
             object-fit: contain;
-            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.4));
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
+        }
+
+        @keyframes fadeInItem {
+            from {
+                opacity: 0;
+                transform: translateY(30px) translateZ(0);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) translateZ(0);
+            }
         }
 
         @keyframes an-branch-1 {
@@ -241,16 +250,10 @@
                 <img src="https://xatimg.com/image/Mpp11jhfeeiR.png" alt="Esquilo">
             </div>
 
-            <div id="tsparticles"></div>
             <div id="css-leaves-container" class="css-falling-leaves"></div>
 
         </div>
     </div>
-
-    <!-- Bibliotecas de Suporte -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
 
     <script>
         const leafImages = [
@@ -258,7 +261,7 @@
             "https://www.pngkey.com/png/full/92-92803_fall-png-autumn-leaf-transparent-background.png"
         ];
 
-        // Gerador de Folhas CSS para o xat.com (Infalível em qualquer navegador)
+        // Gerador de folhas ultra-lentes totalmente otimizado para o xat.com
         function createCSSLeaves() {
             const container = document.getElementById('css-leaves-container');
             if (!container) return;
@@ -277,9 +280,9 @@
                 leaf.style.width = `${size}px`;
                 leaf.style.height = `${size}px`;
                 
-                // Queda ultra-lenta (entre 12s e 25s)
-                const duration = (Math.random() * 13 + 12).toFixed(2);
-                const delay = (Math.random() * 10).toFixed(2);
+                // Queda ultra-lenta (entre 12s e 24s)
+                const duration = (Math.random() * 12 + 12).toFixed(2);
+                const delay = (Math.random() * 12).toFixed(2);
                 leaf.style.animationDuration = `${duration}s`;
                 leaf.style.animationDelay = `-${delay}s`;
                 
@@ -287,60 +290,7 @@
             }
         }
 
-        // Tenta inicializar o tsParticles; se falhar/bloquear, ativa o fallback CSS
-        function initScene() {
-            $('.js-ag-autumn-block').addClass('js-ag-anim');
-            
-            if (typeof gsap !== "undefined") {
-                gsap.from('.custom-item-right', { y: 30, alpha: 0, duration: 1.0, delay: 0.2 });
-                gsap.from('.custom-item-left', { y: 30, alpha: 0, duration: 1.0, delay: 0.3 });
-            }
-
-            createCSSLeaves();
-
-            if (typeof tsParticles !== "undefined") {
-                try {
-                    tsParticles.load({
-                        id: "tsparticles",
-                        options: {
-                            particles: {
-                                move: {
-                                    direction: "bottom",
-                                    enable: true,
-                                    outModes: { default: "out" },
-                                    size: true,
-                                    speed: { min: 0.03, max: 0.15 }
-                                },
-                                number: { value: 35, density: { enable: true, area: 800 } },
-                                opacity: { value: 0.95 },
-                                rotate: { value: { min: 0, max: 360 }, direction: "random", move: true, animation: { enable: true, speed: 12 } },
-                                tilt: { direction: "random", enable: true, move: true, value: { min: 0, max: 360 }, animation: { enable: true, speed: 10, sync: false } },
-                                shape: {
-                                    type: "image",
-                                    options: {
-                                        image: [
-                                            { src: leafImages[0], width: 240, height: 240 },
-                                            { src: leafImages[1], width: 240, height: 240 }
-                                        ]
-                                    }
-                                },
-                                size: { value: { min: 14, max: 26 } },
-                                roll: { enable: true, speed: { min: 4, max: 8 } },
-                                wobble: { distance: 30, enable: true, move: true, speed: { min: -5, max: 5 } }
-                            }
-                        }
-                    });
-                } catch(e) {
-                    // Se o xat.com bloquear o canvas das partículas, as folhas CSS acima cobrem o efeito sem falha.
-                }
-            }
-        }
-
-        if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", initScene);
-        } else {
-            initScene();
-        }
+        window.addEventListener("DOMContentLoaded", createCSSLeaves);
     </script>
 </body>
 </html>
