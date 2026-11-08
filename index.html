@@ -14,36 +14,37 @@
 <link rel="icon" type="image/png" href="https://i.imgur.com/nNh98kV.png" sizes="192x192" />
 <link rel="apple-touch-icon" href="https://i.imgur.com/nNh98kV.png" sizes="180x180"/>
     <style>
-        * {
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
         html, body {
-            height: 100%;
             width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            overflow: hidden !important;
+            height: 100%;
+            overflow: hidden;
             background-color: #2b1810;
+            position: fixed;
+            inset: 0;
         }
 
         .js-ag-autumn-block {
-            height: 100vh;
-            width: 100vw;
+            width: 100%;
+            height: 100%;
             position: relative;
-            overflow: hidden !important;
+            overflow: hidden;
         }
 
         .js-ag-leaves-block {
-            height: 100%;
             width: 100%;
+            height: 100%;
             background: url('https://xatimg.com/image/9QLM4IrOL4Ug.jpg') no-repeat center center;
             background-size: cover;
-            position: relative;
-            overflow: hidden !important;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
         }
 
         #tsparticles {
@@ -95,7 +96,7 @@
             transform-origin: 0 50%;
             animation: an-branch-2 5s ease-in-out 3s infinite alternate;
         }
-		
+
         .js-ag-branch-5 {
             width: 40vw;
             max-width: 500px;
@@ -215,86 +216,90 @@
                 setTimeout((function () {
                     $('.js-ag-autumn-block').addClass('js-ag-anim');
                     
-                    var agBranch = gsap.timeline({delay: 0.5});
-                    agBranch.from($('.js-ag-branch-3'), {y: -30, alpha: 0, duration: 1.5});
-                    agBranch.from($('.js-ag-branch-4'), {y: -30, alpha: 0, duration: 1.5}, 0.5);
-                    agBranch.from($('.js-ag-branch-5'), {y: -30, alpha: 0, duration: 1.5}, 0);
-                    agBranch.from($('.js-ag-branch-6'), {y: -30, alpha: 0, duration: 1.5}, 0.5);
+                    var agBranch = gsap.timeline({delay: 0.3});
+                    agBranch.from($('.js-ag-branch-3'), {y: -20, alpha: 0, duration: 1.2});
+                    agBranch.from($('.js-ag-branch-4'), {y: -20, alpha: 0, duration: 1.2}, 0.3);
+                    agBranch.from($('.js-ag-branch-5'), {y: -20, alpha: 0, duration: 1.2}, 0);
+                    agBranch.from($('.js-ag-branch-6'), {y: -20, alpha: 0, duration: 1.2}, 0.3);
                     
                     gsap.from('.custom-item-right', {
-                        y: 50,
+                        y: 30,
                         alpha: 0,
-                        duration: 1.2,
-                        delay: 1,
+                        duration: 1.0,
+                        delay: 0.8,
                         ease: 'power2.out'
                     });
 
                     gsap.from('.custom-item-left', {
-                        y: 50,
+                        y: 30,
                         alpha: 0,
-                        duration: 1.2,
-                        delay: 1.2,
+                        duration: 1.0,
+                        delay: 0.9,
                         ease: 'power2.out'
                     });
-                }), 300);
+                }), 200);
             });
         })(jQuery);
 
-        tsParticles.load({
-            id: "tsparticles",
-            options: {
-                particles: {
-                    color: {
-                        value: ["#8B9216", "#A79F0F", "#EDA421", "#E98604", "#DF3908", "#C91E0A"]
-                    },
-                    move: {
-                        direction: "bottom",
-                        enable: true,
-                        outModes: { default: "out" },
-                        size: true,
-                        speed: { min: 0.03, max: 0.15 }
-                    },
-                    number: {
-                        value: 50,
-                        density: { enable: true, area: 800 }
-                    },
-                    opacity: { value: 0.95 },
-                    rotate: {
-                        value: { min: 0, max: 360 },
-                        direction: "random",
-                        move: true,
-                        animation: { enable: true, speed: 12 }
-                    },
-                    tilt: {
-                        direction: "random",
-                        enable: true,
-                        move: true,
-                        value: { min: 0, max: 360 },
-                        animation: { enable: true, speed: 10, sync: false }
-                    },
-                    shape: {
-                        type: "image",
-                        options: {
-                            image: [
-                                { src: "https://www.pngall.com/wp-content/uploads/2016/07/Canada-Leaf-PNG-Image.png", width: 240, height: 240 },
-                                { src: "https://www.pngkey.com/png/full/92-92803_fall-png-autumn-leaf-transparent-background.png", width: 240, height: 240 }
-                            ]
+        window.addEventListener("load", async () => {
+            if (typeof tsParticles !== "undefined") {
+                await tsParticles.load({
+                    id: "tsparticles",
+                    options: {
+                        particles: {
+                            color: {
+                                value: ["#8B9216", "#A79F0F", "#EDA421", "#E98604", "#DF3908", "#C91E0A"]
+                            },
+                            move: {
+                                direction: "bottom",
+                                enable: true,
+                                outModes: { default: "out" },
+                                size: true,
+                                speed: { min: 0.03, max: 0.15 }
+                            },
+                            number: {
+                                value: 45,
+                                density: { enable: true, area: 800 }
+                            },
+                            opacity: { value: 0.95 },
+                            rotate: {
+                                value: { min: 0, max: 360 },
+                                direction: "random",
+                                move: true,
+                                animation: { enable: true, speed: 12 }
+                            },
+                            tilt: {
+                                direction: "random",
+                                enable: true,
+                                move: true,
+                                value: { min: 0, max: 360 },
+                                animation: { enable: true, speed: 10, sync: false }
+                            },
+                            shape: {
+                                type: "image",
+                                options: {
+                                    image: [
+                                        { src: "https://www.pngall.com/wp-content/uploads/2016/07/Canada-Leaf-PNG-Image.png", width: 240, height: 240 },
+                                        { src: "https://www.pngkey.com/png/full/92-92803_fall-png-autumn-leaf-transparent-background.png", width: 240, height: 240 }
+                                    ]
+                                }
+                            },
+                            size: { value: { min: 12, max: 24 } },
+                            roll: {
+                                darken: { enable: true, value: 30 },
+                                enlighten: { enable: true, value: 30 },
+                                enable: true,
+                                speed: { min: 4, max: 8 }
+                            },
+                            wobble: {
+                                distance: 30,
+                                enable: true,
+                                move: true,
+                                speed: { min: -5, max: 5 }
+                            }
                         }
-                    },
-                    size: { value: { min: 12, max: 24 } },
-                    roll: {
-                        darken: { enable: true, value: 30 },
-                        enlighten: { enable: true, value: 30 },
-                        enable: true,
-                        speed: { min: 4, max: 8 }
-                    },
-                    wobble: {
-                        distance: 30,
-                        enable: true,
-                        move: true,
-                        speed: { min: -5, max: 5 }
                     }
-                }
+                });
             }
         });
     </script>
