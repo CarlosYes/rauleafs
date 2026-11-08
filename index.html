@@ -6,13 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
-<meta property="og:title" content="RAU Player" />
-<meta property="og:description" content="RAU" />
 <link rel="icon" type="image/png" href="https://i.imgur.com/nNh98kV.png" sizes="48x48" />
-<link rel="icon" type="image/png" href="https://i.imgur.com/nNh98kV.png" sizes="96x96" />
-<link rel="icon" type="image/png" href="https://i.imgur.com/nNh98kV.png" sizes="144x144" />
-<link rel="icon" type="image/png" href="https://i.imgur.com/nNh98kV.png" sizes="192x192" />
-<link rel="apple-touch-icon" href="https://i.imgur.com/nNh98kV.png" sizes="180x180"/>
     <style>
         *, *::before, *::after {
             margin: 0;
@@ -23,17 +17,22 @@
         html, body {
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            overflow: hidden !important;
             background-color: #2b1810;
             position: fixed;
-            inset: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
         }
 
         .js-ag-autumn-block {
             width: 100%;
             height: 100%;
-            position: relative;
-            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden !important;
         }
 
         .js-ag-leaves-block {
@@ -44,7 +43,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            overflow: hidden;
+            overflow: hidden !important;
         }
 
         #tsparticles {
@@ -121,35 +120,37 @@
 
         .custom-item-right {
             position: absolute;
-            bottom: 40px;
-            right: 40px;
+            bottom: 30px;
+            right: 30px;
             z-index: 10;
             pointer-events: none;
+            max-width: 25vw;
+            width: 250px;
         }
 
         .custom-item-right img {
-            width: 22vw;
-            max-width: 280px;
-            min-width: 140px;
+            width: 100%;
             height: auto;
             display: block;
+            object-fit: contain;
             filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.4));
         }
 
         .custom-item-left {
             position: absolute;
-            bottom: 40px;
-            left: 40px;
+            bottom: 30px;
+            left: 30px;
             z-index: 10;
             pointer-events: none;
+            max-width: 20vw;
+            width: 180px;
         }
 
         .custom-item-left img {
-            width: 16vw;
-            max-width: 200px;
-            min-width: 100px;
+            width: 100%;
             height: auto;
             display: block;
+            object-fit: contain;
             filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.4));
         }
 
@@ -166,11 +167,13 @@
         @media (max-width: 768px) {
             .custom-item-right {
                 right: 15px;
-                bottom: 20px;
+                bottom: 15px;
+                width: 150px;
             }
             .custom-item-left {
                 left: 15px;
-                bottom: 20px;
+                bottom: 15px;
+                width: 110px;
             }
         }
     </style>
@@ -241,67 +244,80 @@
             });
         })(jQuery);
 
-        window.addEventListener("load", async () => {
-            if (typeof tsParticles !== "undefined") {
-                await tsParticles.load({
-                    id: "tsparticles",
-                    options: {
-                        particles: {
-                            color: {
-                                value: ["#8B9216", "#A79F0F", "#EDA421", "#E98604", "#DF3908", "#C91E0A"]
-                            },
-                            move: {
-                                direction: "bottom",
-                                enable: true,
-                                outModes: { default: "out" },
-                                size: true,
-                                speed: { min: 0.03, max: 0.15 }
-                            },
-                            number: {
-                                value: 45,
-                                density: { enable: true, area: 800 }
-                            },
-                            opacity: { value: 0.95 },
-                            rotate: {
-                                value: { min: 0, max: 360 },
-                                direction: "random",
-                                move: true,
-                                animation: { enable: true, speed: 12 }
-                            },
-                            tilt: {
-                                direction: "random",
-                                enable: true,
-                                move: true,
-                                value: { min: 0, max: 360 },
-                                animation: { enable: true, speed: 10, sync: false }
-                            },
-                            shape: {
-                                type: "image",
-                                options: {
-                                    image: [
-                                        { src: "https://www.pngall.com/wp-content/uploads/2016/07/Canada-Leaf-PNG-Image.png", width: 240, height: 240 },
-                                        { src: "https://www.pngkey.com/png/full/92-92803_fall-png-autumn-leaf-transparent-background.png", width: 240, height: 240 }
-                                    ]
-                                }
-                            },
-                            size: { value: { min: 12, max: 24 } },
-                            roll: {
-                                darken: { enable: true, value: 30 },
-                                enlighten: { enable: true, value: 30 },
-                                enable: true,
-                                speed: { min: 4, max: 8 }
-                            },
-                            wobble: {
-                                distance: 30,
-                                enable: true,
-                                move: true,
-                                speed: { min: -5, max: 5 }
+        function startAutumnLeaves() {
+            if (typeof tsParticles === "undefined") return;
+
+            tsParticles.load({
+                id: "tsparticles",
+                options: {
+                    particles: {
+                        move: {
+                            direction: "bottom",
+                            enable: true,
+                            outModes: { default: "out" },
+                            size: true,
+                            speed: { min: 0.03, max: 0.15 }
+                        },
+                        number: {
+                            value: 45,
+                            density: { enable: true, area: 800 }
+                        },
+                        opacity: { value: 0.95 },
+                        rotate: {
+                            value: { min: 0, max: 360 },
+                            direction: "random",
+                            move: true,
+                            animation: { enable: true, speed: 12 }
+                        },
+                        tilt: {
+                            direction: "random",
+                            enable: true,
+                            move: true,
+                            value: { min: 0, max: 360 },
+                            animation: { enable: true, speed: 10, sync: false }
+                        },
+                        shape: {
+                            type: "image",
+                            options: {
+                                image: [
+                                    { 
+                                        src: "https://www.pngall.com/wp-content/uploads/2016/07/Canada-Leaf-PNG-Image.png", 
+                                        width: 240, 
+                                        height: 240,
+                                        replaceColor: false
+                                    },
+                                    { 
+                                        src: "https://www.pngkey.com/png/full/92-92803_fall-png-autumn-leaf-transparent-background.png", 
+                                        width: 240, 
+                                        height: 240,
+                                        replaceColor: false
+                                    }
+                                ]
                             }
+                        },
+                        size: { value: { min: 14, max: 26 } },
+                        roll: {
+                            darken: { enable: true, value: 20 },
+                            enlighten: { enable: true, value: 20 },
+                            enable: true,
+                            speed: { min: 4, max: 8 }
+                        },
+                        wobble: {
+                            distance: 30,
+                            enable: true,
+                            move: true,
+                            speed: { min: -5, max: 5 }
                         }
                     }
-                });
-            }
-        });
+                }
+            });
+        }
+
+        if (document.readyState === "complete") {
+            startAutumnLeaves();
+        } else {
+            window.addEventListener("load", startAutumnLeaves);
+        }
     </script>
 </body>
 </html>
